@@ -20,6 +20,7 @@ import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -178,7 +179,7 @@ public class CustomDriver {
 	public boolean isElementVisible(By arg0) {
 		boolean elementVisible = false;
 		try {
-			(new WebDriverWait(driver, 60)).until(ExpectedConditions.visibilityOfElementLocated(arg0));
+			(new WebDriverWait(driver, Duration.ofSeconds(60))).until(ExpectedConditions.visibilityOfElementLocated(arg0));
 			elementVisible = true;
 
 		} catch (TimeoutException ex) {
@@ -348,7 +349,7 @@ public class CustomDriver {
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementById(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementById(arg0);
+			return ((AppiumDriver) driver).findElement(By.id(arg0));
 		} else {
 			return null;
 		}
@@ -361,7 +362,7 @@ public class CustomDriver {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsById(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementsById(arg0);
+			return ((AppiumDriver) driver).findElements(By.id(arg0));
 		} else {
 			return null;
 		}
@@ -374,7 +375,7 @@ public class CustomDriver {
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByName(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementByName(arg0);
+			return ((AppiumDriver) driver).findElement(By.name(arg0));
 		} else {
 			return null;
 		}
@@ -387,7 +388,7 @@ public class CustomDriver {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsByName(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementsByName(arg0);
+			return ((AppiumDriver) driver).findElements(By.name(arg0));
 		} else {
 			return null;
 		}
@@ -400,7 +401,7 @@ public class CustomDriver {
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByXPath(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementByXPath(arg0);
+			return ((AppiumDriver) driver).findElement(By.xpath(arg0));
 		} else {
 			return null;
 		}
@@ -413,7 +414,7 @@ public class CustomDriver {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsByXPath(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementsByXPath(arg0);
+			return ((AppiumDriver) driver).findElements(By.xpath(arg0));
 		} else {
 			return null;
 		}

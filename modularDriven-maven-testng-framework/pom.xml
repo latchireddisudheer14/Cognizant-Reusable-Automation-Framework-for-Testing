@@ -11,14 +11,14 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<selenium.standalone>3.141.59</selenium.standalone>
-		<java.client.appium>7.3.0</java.client.appium>
+		<selenium.standalone>4.34.0</selenium.standalone>
+		<java.client.appium>9.5.0</java.client.appium>
 		<org.testng>7.3.0</org.testng>
 		<source.and.target.JVM.version>11</source.and.target.JVM.version>
 		<org.apache.maven.plugins.maven-compiler-plugin.version>3.8.1</org.apache.maven.plugins.maven-compiler-plugin.version>
 		<org.codehaus.mojo.exec-maven-plugin.version>3.0.0</org.codehaus.mojo.exec-maven-plugin.version>
 		<org.apache.maven.plugins.maven-surefire-plugin.version>3.0.0-M5</org.apache.maven.plugins.maven-surefire-plugin.version>
-		<org.apache.maven.plugins.maven-antrun-plugin.version>1.8</org.apache.maven.plugins.maven-antrun-plugin.version>
+		<org.apache.maven.plugins.maven-antrun-plugin.version>3.1.0</org.apache.maven.plugins.maven-antrun-plugin.version>
 		<org.apache.poi>4.1.2</org.apache.poi>
 		<stax.stax-api>1.0.1</stax.stax-api>
 		<org.apache.xmlbeans.xmlbeans>3.1.0</org.apache.xmlbeans.xmlbeans>
