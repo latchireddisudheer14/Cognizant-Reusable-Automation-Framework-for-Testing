@@ -205,12 +205,12 @@ public class ExcelDataAccessforxlsm {
 		}
 	}
 
-	
+	@SuppressWarnings("deprecation")
 	private String getCellValueAsString(XSSFCell cell, FormulaEvaluator formulaEvaluator) {
-		if (cell == null || cell.getCellType() == CellType.BLANK) {
+		if (cell == null || cell.getCellType() == XSSFCell.CELL_TYPE_BLANK) {
 			return "";
 		} else {
-			if (formulaEvaluator.evaluate(cell).getCellType() == CellType.ERROR) {
+			if (formulaEvaluator.evaluate(cell).getCellType() == XSSFCell.CELL_TYPE_ERROR) {
 				throw new FrameworkException(
 						"Error in formula within this cell! " + "Error code: " + cell.getErrorCellValue());
 			}

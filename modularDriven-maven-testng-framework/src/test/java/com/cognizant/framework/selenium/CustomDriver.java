@@ -15,9 +15,7 @@
  */
 package com.cognizant.framework.selenium;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MultiTouchAction;
-import io.appium.java_client.TouchAction;
+import io.appium.java_client.*;
 
 import java.net.URL;
 import java.time.Duration;
@@ -26,6 +24,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.SupportsContextSwitching;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ScreenOrientation;
@@ -34,7 +35,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.WebDriver.TargetLocator;
-import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.remote.CommandExecutor;
 import org.openqa.selenium.remote.ErrorHandler;
 import org.openqa.selenium.remote.ExecuteMethod;
@@ -174,7 +174,7 @@ public class CustomDriver {
 	/**
 	 * Function to wait until the specified element is visible
 	 * 
-	 * @param by The locator used to identify the element {@link WebDriver}
+	 *  The locator used to identify the element {@link WebDriver}
 	 */
 	public boolean isElementVisible(By arg0) {
 		boolean elementVisible = false;
@@ -199,7 +199,7 @@ public class CustomDriver {
 	 * Function to Find all elements within the current page using the given
 	 * mechanism
 	 * 
-	 * @param by The locator used to identify the list of elements {@link WebDriver}
+	 * @param arg0  The locator used to identify the list of elements {@link WebDriver}
 	 */
 	public List<WebElement> findElements(By arg0) {
 		return driver.findElements(arg0);
@@ -250,7 +250,7 @@ public class CustomDriver {
 	/**
 	 * Function to Return a set of window handles which can be used to iterate over
 	 * all open windows of this WebDriver instance by passing them to
-	 * {@link switchTo} {@link WebDriver}
+	 * {@link String} {@link WebDriver}
 	 */
 	public Set<String> getWindowHandles() {
 		return driver.getWindowHandles();
@@ -344,7 +344,7 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementById(String arg0) {
@@ -357,7 +357,7 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is OR <b>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsById(String arg0) {
@@ -396,7 +396,7 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByXPath(String arg0) {
@@ -409,7 +409,7 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsByXPath(String arg0) {
@@ -422,12 +422,12 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is < <b>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByLinkText(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementByLinkText(arg0);
+			return ((AppiumDriver) driver).findElement(By.linkText(arg0));
 		} else {
 			return null;
 		}
@@ -435,12 +435,12 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsByLinkText(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementsByLinkText(arg0);
+			return ((AppiumDriver) driver).findElements(By.linkText(arg0));
 		} else {
 			return null;
 		}
@@ -448,12 +448,12 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByPartialLinkText(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementByPartialLinkText(arg0);
+			return ((AppiumDriver) driver).findElement(By.partialLinkText(arg0));
 		} else {
 			return null;
 		}
@@ -461,12 +461,12 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsByPartialLinkText(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementsByPartialLinkText(arg0);
+			return ((AppiumDriver) driver).findElements(By.partialLinkText(arg0));
 		} else {
 			return null;
 		}
@@ -479,7 +479,7 @@ public class CustomDriver {
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByClassName(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementByClassName(arg0);
+			return ((AppiumDriver) driver).findElement(By.className(arg0));
 		} else {
 			return null;
 		}
@@ -487,12 +487,12 @@ public class CustomDriver {
 
 	/**
 	 * Function Applicable only when the tool used is <b/>APPIUM i.e.,
-	 * {@link AppiumDriver} OR <b/>SEETEST i.e., {@link MobileWebDriver}.
+	 * {@link AppiumDriver} OR <b/>SEETEST i.e., {@link AppiumDriver}.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsByClassName(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementsByClassName(arg0);
+			return ((AppiumDriver) driver).findElements(By.className(arg0));
 		} else {
 			return null;
 		}
@@ -505,7 +505,7 @@ public class CustomDriver {
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByTagName(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementByTagName(arg0);
+			return ((AppiumDriver) driver).findElement(By.tagName(arg0));
 		} else {
 			return null;
 		}
@@ -518,7 +518,7 @@ public class CustomDriver {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<WebElement> findElementsByTagName(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementsByTagName(arg0);
+			return ((AppiumDriver) driver).findElements(By.tagName(arg0));
 		} else {
 			return null;
 		}
@@ -531,7 +531,7 @@ public class CustomDriver {
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByCssSelector(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementByCssSelector(arg0);
+			return ((AppiumDriver) driver).findElement(By.cssSelector(arg0));
 		} else {
 			return null;
 		}
@@ -544,7 +544,7 @@ public class CustomDriver {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<WebElement> findElementsByCssSelector(String arg0) {
 		if (isAppium()) {
-			return ((AppiumDriver) driver).findElementsByCssSelector(arg0);
+			return ((AppiumDriver) driver).findElements(By.cssSelector(arg0));
 		} else {
 			return null;
 		}
@@ -603,7 +603,7 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public WebDriver context(String arg0) {
-		return ((AppiumDriver) driver).context(arg0);
+		return ((SupportsContextSwitching) driver).context(arg0);
 	}
 
 	/**
@@ -621,7 +621,11 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public void performMultiTouchAction(MultiTouchAction arg0) {
-		((AppiumDriver) driver).performMultiTouchAction(arg0);
+		((AndroidDriver) driver).performMultiTouchAction(arg0);
+	}
+
+	public void performMultiTouchActionIOS(MultiTouchAction arg0) {
+		((IOSDriver) driver).performMultiTouchAction(arg0);
 	}
 
 	/**
@@ -630,16 +634,19 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public TouchAction performTouchAction(TouchAction arg0) {
-		return ((AppiumDriver) driver).performTouchAction(arg0);
+		return ((AndroidDriver) driver).performTouchAction(arg0);
 	}
 
+	public TouchAction performTouchActionIOS(TouchAction arg0) {
+		return ((AndroidDriver) driver).performTouchAction(arg0);
+	}
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
 	 * {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public String getContext() {
-		return ((AppiumDriver) driver).getContext();
+		return ((SupportsContextSwitching) driver).getContext();
 	}
 
 	/**
@@ -648,7 +655,7 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Set<String> getContextHandles() {
-		return ((AppiumDriver) driver).getContextHandles();
+		return ((SupportsContextSwitching) driver).getContextHandles();
 	}
 
 	/**
@@ -657,9 +664,12 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public ScreenOrientation getOrientation() {
-		return ((AppiumDriver) driver).getOrientation();
+		return ((AndroidDriver) driver).getOrientation();
 	}
 
+	public ScreenOrientation getOrientationIOS() {
+		return ((IOSDriver) driver).getOrientation();
+	}
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
 	 * {@link AppiumDriver}.
@@ -693,7 +703,11 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public void rotate(ScreenOrientation arg0) {
-		((AppiumDriver) driver).rotate(arg0);
+		((AndroidDriver) driver).rotate(arg0);
+	}
+
+	public void rotateIOS(ScreenOrientation arg0) {
+		((IOSDriver) driver).rotate(arg0);
 	}
 
 	/**
@@ -703,7 +717,7 @@ public class CustomDriver {
 	@SuppressWarnings("rawtypes")
 	public WebElement findElementByAccessibilityId(String arg0) {
 
-		return ((AppiumDriver) driver).findElementByAccessibilityId(arg0);
+		return ((AppiumDriver) driver).findElement(AppiumBy.accessibilityId(arg0));
 	}
 
 	/**
@@ -713,25 +727,7 @@ public class CustomDriver {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<WebElement> findElementsByAccessibilityId(String arg0) {
 
-		return ((AppiumDriver) driver).findElementsByAccessibilityId(arg0);
-	}
-
-	/**
-	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
-	 * {@link AppiumDriver}.
-	 */
-	@SuppressWarnings("rawtypes")
-	public Location location() {
-		return ((AppiumDriver) driver).location();
-	}
-
-	/**
-	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
-	 * {@link AppiumDriver}.
-	 */
-	@SuppressWarnings("rawtypes")
-	public void setLocation(Location arg0) {
-		((AppiumDriver) driver).setLocation(arg0);
+		return ((AppiumDriver) driver).findElements(AppiumBy.accessibilityId(arg0));
 	}
 
 	/**
@@ -740,7 +736,11 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public void hideKeyboard() {
-		((AppiumDriver) driver).hideKeyboard();
+		((AndroidDriver) driver).hideKeyboard();
+	}
+
+	public void hideKeyboardIOS() {
+		((IOSDriver) driver).hideKeyboard();
 	}
 
 	/**
@@ -767,25 +767,29 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public byte[] pullFile(String remotePath) {
-		return ((AppiumDriver) driver).pullFile(remotePath);
+		return ((AndroidDriver) driver).pullFile(remotePath);
 	}
-
+	public byte[] pullFileIOS(String remotePath) {
+		return ((IOSDriver) driver).pullFile(remotePath);
+	}
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
 	 * {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public byte[] pullFolder(String remotePath) {
-		return ((AppiumDriver) driver).pullFolder(remotePath);
+		return ((AndroidDriver) driver).pullFolder(remotePath);
 	}
-
+	public byte[] pullFolderIOS(String remotePath) {
+		return ((IOSDriver) driver).pullFolder(remotePath);
+	}
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
 	 * {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public void closeApp() {
-		((AppiumDriver) driver).closeApp();
+		((InteractsWithApps) driver).terminateApp(null);
 	}
 
 	/**
@@ -794,25 +798,29 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public void installApp(String appPath) {
-		((AppiumDriver) driver).installApp(appPath);
+		((AndroidDriver) driver).installApp(appPath);
 	}
-
+	public void installAppIOS(String appPath) {
+		((IOSDriver) driver).installApp(appPath);
+	}
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
 	 * {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public boolean isAppInstalled(String bundleId) {
-		return ((AppiumDriver) driver).isAppInstalled(bundleId);
+		return ((AndroidDriver) driver).isAppInstalled(bundleId);
 	}
-
+	public boolean isAppInstalledIOS(String bundleId) {
+		return ((IOSDriver) driver).isAppInstalled(bundleId);
+	}
 	/**
 	 * Function Applicable only when the tool used is <b>APPIUM i.e.,
 	 * {@link AppiumDriver}.
 	 */
 	@SuppressWarnings("rawtypes")
 	public void launchApp() {
-		((AppiumDriver) driver).launchApp();
+		((InteractsWithApps) driver).activateApp(null);
 	}
 
 	/**
@@ -821,7 +829,7 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public void removeApp(String bundleId) {
-		((AppiumDriver) driver).removeApp(bundleId);
+		((InteractsWithApps) driver).removeApp(bundleId);
 	}
 
 	/**
@@ -830,7 +838,7 @@ public class CustomDriver {
 	 */
 	@SuppressWarnings("rawtypes")
 	public void resetApp() {
-		((AppiumDriver) driver).resetApp();
+		((InteractsWithApps) driver).terminateApp(null);
 	}
 
 }

@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.Proxy.ProxyType;
@@ -170,7 +171,7 @@ public class WebDriverFactory {
 			desiredCapabilities.setPlatform(platform);
 		}
 
-		desiredCapabilities.setJavascriptEnabled(true); // Pre-requisite for
+		//desiredCapabilities.setJavascriptEnabled(true); // Pre-requisite for
 														// remote execution
 
 		URL url = getUrl(remoteUrl);
@@ -212,25 +213,23 @@ public class WebDriverFactory {
 	 */
 	@SuppressWarnings("deprecation")
 	public static WebDriver getEmulatedWebDriver(String deviceName) {
-		DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceName);
-
-		properties = Settings.getInstance();
-		System.setProperty("webdriver.chrome.driver", properties.getProperty("ChromeDriverPath"));
-
-		return new ChromeDriver(desiredCapabilities);
+		//DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceName);
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability("deviceName","Chrome");
+		//properties = Settings.getInstance();
+		//System.setProperty("webdriver.chrome.driver", properties.getProperty("ChromeDriverPath"));
+        return new ChromeDriver(options);
 	}
 
-	private static DesiredCapabilities getEmulatedChromeDriverCapabilities(String deviceName) {
+	private static ChromeDriver getEmulatedChromeDriverCapabilities(String deviceName) {
 		Map<String, String> mobileEmulation = new HashMap<String, String>();
 		mobileEmulation.put("deviceName", deviceName);
 
 		Map<String, Object> chromeOptions = new HashMap<String, Object>();
 		chromeOptions.put("mobileEmulation", mobileEmulation);
-
-		DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
-		desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-
-		return desiredCapabilities;
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability("deviceName","Chrome");
+		return new ChromeDriver(options);
 	}
 
 	/**
@@ -244,13 +243,12 @@ public class WebDriverFactory {
 	 * @return The corresponding {@link RemoteWebDriver} object
 	 */
 	public static WebDriver getEmulatedRemoteWebDriver(String deviceName, String remoteUrl) {
-		DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceName);
-		desiredCapabilities.setJavascriptEnabled(true); // Pre-requisite for
-														// remote execution
 
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability("deviceName","Chrome");
 		URL url = getUrl(remoteUrl);
 
-		return new RemoteWebDriver(url, desiredCapabilities);
+		return new RemoteWebDriver(url, options);
 	}
 
 	/**
@@ -266,17 +264,17 @@ public class WebDriverFactory {
 	@SuppressWarnings("deprecation")
 	public static WebDriver getEmulatedWebDriver(int deviceWidth, int deviceHeight, float devicePixelRatio,
 			String userAgent) {
-		DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceWidth, deviceHeight,
-				devicePixelRatio, userAgent);
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability("userAgent","chrome");
 
-		properties = Settings.getInstance();
-		System.setProperty("webdriver.chrome.driver", properties.getProperty("ChromeDriverPath"));
+//		properties = Settings.getInstance();
+//		System.setProperty("webdriver.chrome.driver", properties.getProperty("ChromeDriverPath"));
 
-		return new ChromeDriver(desiredCapabilities);
+		return new ChromeDriver(options);
 	}
 
-	private static DesiredCapabilities getEmulatedChromeDriverCapabilities(int deviceWidth, int deviceHeight,
-			float devicePixelRatio, String userAgent) {
+	private static Capabilities getEmulatedChromeDriverCapabilities(int deviceWidth, int deviceHeight,
+																	float devicePixelRatio, String userAgent) {
 		Map<String, Object> deviceMetrics = new HashMap<String, Object>();
 		deviceMetrics.put("width", deviceWidth);
 		deviceMetrics.put("height", deviceHeight);
@@ -284,17 +282,14 @@ public class WebDriverFactory {
 
 		Map<String, Object> mobileEmulation = new HashMap<String, Object>();
 		mobileEmulation.put("deviceMetrics", deviceMetrics);
-		// mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 4.2.1;
-		// en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko)
-		// Chrome/18.0.1025.166 Mobile Safari/535.19");
 		mobileEmulation.put("userAgent", userAgent);
 
 		Map<String, Object> chromeOptions = new HashMap<String, Object>();
 		chromeOptions.put("mobileEmulation", mobileEmulation);
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability("userAgent","chrome");
 
-		DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
-		desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-		return desiredCapabilities;
+		return options;
 	}
 
 	/**
@@ -309,13 +304,10 @@ public class WebDriverFactory {
 	 *                         execution
 	 * @return The corresponding {@link RemoteWebDriver} object
 	 */
-	public static WebDriver getEmulatedRemoteWebDriver(int deviceWidth, int deviceHeight, float devicePixelRatio,
+	public static RemoteWebDriver getEmulatedRemoteWebDriver(int deviceWidth, int deviceHeight, float devicePixelRatio,
 			String userAgent, String remoteUrl) {
-		DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceWidth, deviceHeight,
+		Capabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceWidth, deviceHeight,
 				devicePixelRatio, userAgent);
-		desiredCapabilities.setJavascriptEnabled(true); // Pre-requisite for
-														// remote execution
-
 		URL url = getUrl(remoteUrl);
 
 		return new RemoteWebDriver(url, desiredCapabilities);

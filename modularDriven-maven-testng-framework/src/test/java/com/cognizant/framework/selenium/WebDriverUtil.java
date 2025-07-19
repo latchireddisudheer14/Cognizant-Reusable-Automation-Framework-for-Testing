@@ -26,6 +26,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.TimeoutException;
 
+import java.time.Duration;
+
 /**
  * Class containing useful WebDriver utility functions
  * @author Cognizant
@@ -62,7 +64,7 @@ public class WebDriverUtil {
 	public void waitUntilPageLoaded(long timeOutInSeconds) {
 		WebElement oldPage = driver.findElement(By.tagName("html"));
 		
-		(new WebDriverWait(driver.getWebDriver(), timeOutInSeconds))
+		(new WebDriverWait(driver.getWebDriver(), Duration.ofSeconds(timeOutInSeconds)))
 									.until(ExpectedConditions.stalenessOf(oldPage));
 		
 	}
@@ -79,7 +81,7 @@ public class WebDriverUtil {
 	            }
 	        };
 		    
-		(new WebDriverWait(driver.getWebDriver(), timeOutInSeconds)).until(pageReadyStateComplete);
+		(new WebDriverWait(driver.getWebDriver(), Duration.ofSeconds(timeOutInSeconds))).until(pageReadyStateComplete);
 	}
 	
 	/**
@@ -88,7 +90,7 @@ public class WebDriverUtil {
 	 * @param timeOutInSeconds The wait timeout in seconds
 	 */
 	public void waitUntilElementLocated(By by, long timeOutInSeconds) {
-		(new WebDriverWait(driver.getWebDriver(), timeOutInSeconds))
+		(new WebDriverWait(driver.getWebDriver(), Duration.ofSeconds(timeOutInSeconds)))
 							.until(ExpectedConditions.presenceOfElementLocated(by));
 	}
 	
@@ -98,7 +100,7 @@ public class WebDriverUtil {
 	 * @param timeOutInSeconds The wait timeout in seconds
 	 */
 	public void waitUntilElementVisible(By by, long timeOutInSeconds) {
-		(new WebDriverWait(driver.getWebDriver(), timeOutInSeconds))
+		(new WebDriverWait(driver.getWebDriver(), Duration.ofSeconds(timeOutInSeconds)))
 							.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 	
@@ -108,7 +110,7 @@ public class WebDriverUtil {
 	 * @param timeOutInSeconds The wait timeout in seconds
 	 */
 	public void waitUntilElementEnabled(By by, long timeOutInSeconds) {
-		(new WebDriverWait(driver.getWebDriver(), timeOutInSeconds))
+		(new WebDriverWait(driver.getWebDriver(), Duration.ofSeconds(timeOutInSeconds)))
 							.until(ExpectedConditions.elementToBeClickable(by));
 	}
 	
@@ -118,7 +120,7 @@ public class WebDriverUtil {
 	 * @param timeOutInSeconds The wait timeout in seconds
 	 */
 	public void waitUntilElementDisabled(By by, long timeOutInSeconds) {
-		(new WebDriverWait(driver.getWebDriver(), timeOutInSeconds))
+		(new WebDriverWait(driver.getWebDriver(), Duration.ofSeconds(timeOutInSeconds)))
 			.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(by)));
 	}
 	
@@ -166,7 +168,7 @@ public class WebDriverUtil {
 	 */
 	public Boolean isAlertPresent(long timeOutInSeconds) {
 		try {
-			new WebDriverWait(driver.getWebDriver(), timeOutInSeconds).until(ExpectedConditions.alertIsPresent());
+			new WebDriverWait(driver.getWebDriver(), Duration.ofSeconds(timeOutInSeconds)).until(ExpectedConditions.alertIsPresent());
 			return true;
 		} catch (TimeoutException ex) {
 			return false;
